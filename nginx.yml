@@ -1,0 +1,22 @@
+---
+- name: Install nginx
+  hosts: web
+  become: true
+
+  tasks:
+   - name: Install nginx
+     ansible.builtin.yum:
+      name: nginx
+      state: present
+
+   - name: Insert Index Page
+     ansible.builtin.template:
+      src: index.html
+      dest: /usr/shae/nginx/html/index.html
+      mode: 0644
+
+   - name: Start nginx
+     ansible.builtin.service:
+      name: nginx
+      state: started
+     
